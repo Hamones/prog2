@@ -1,52 +1,45 @@
-// Tipo abstrato de dado "fila de inteiros"
-// Prof. Carlos Maziero - DINF/UFPR, Out 2024
-//
-// Este TAD implementa uma fila de números inteiros com capacidade
-// para até CAP elementos, definida no momento de sua criação.
-//
-// Implementação com _______________ (completar).
-
 #ifndef FILA
 #define FILA
 
-struct fila_t
+// TAD Fila (fila.h)
+// Alinhado para armazenar inteiros (IDs dos heróis)
+
+// Descreve um nodo da fila 
+struct fila_nodo_t
 {
-  int *dados;      // Ponteiro para o vetor de inteiros
-  int capacidade;  // Capacidade máxima (N)
-  int tamanho;     // Quantidade atual de elementos
-  int inicio;      // Índice do primeiro elemento (cabeça)
-  int fim;         // Índice onde será inserido o PRÓXIMO elemento (cauda)
+    int item;                   // O item aqui é o ID (int), não void*
+    struct fila_nodo_t *prox;   // Próximo nodo
 };
 
-// Cria uma fila vazia com a capacidade informada e a retorna;
-// Retorna NULL em caso de erro
-struct fila_t *fila_cria (int capacidade);
+// Descreve a estrutura da fila 
+struct fila_t
+{
+    struct fila_nodo_t *prim;   // Primeiro nodo
+    struct fila_nodo_t *ult;    // Último nodo
+    int num;                    // Número de itens
+};
 
-// Remove todos os elementos da fila, libera memória e retorna NULL
+// Cria uma fila vazia.
+// Retorno: ponteiro para a fila criada ou NULL se erro.
+struct fila_t *fila_cria ();
+
+// Libera todas as estruturas de dados da fila.
+// Retorno: NULL.
 struct fila_t *fila_destroi (struct fila_t *f);
 
-// Insere o elemento no final da fila (politica FIFO);
-// Retorna o número de elementos na fila após a operação
-// ou -1 em caso de erro
-int fila_insere (struct fila_t *f, int elem);
+// Insere um item (ID) no final da fila.
+// Retorno: 1 se sucesso, 0 se erro.
+int fila_insere (struct fila_t *f, int item);
 
-// Retira o elemento do inicio da fila (politica FIFO) e o devolve;
-// Retorna o número de elementos na fila após a operação
-// ou -1 em caso de erro
-int fila_retira (struct fila_t *f, int *elem);
+// Retira o primeiro item da fila e o devolve no ponteiro *item.
+// Retorno: 1 se sucesso (item retirado), 0 se erro ou fila vazia.
+int fila_retira (struct fila_t *f, int *item);
 
-// Devolve o primeiro da fila, sem removê-lo
-// Retorna o número de elementos na fila ou -1 em caso de erro
-int fila_primeiro (struct fila_t *f, int *elem);
-
-// Retorna o tamanho da fila (número de elementos presentes)
+// Informa o número de itens na fila.
+// Retorno: N >= 0 ou -1 se erro.
 int fila_tamanho (struct fila_t *f);
 
-// Retorna a capacidade da fila (número máximo de elementos)
-int fila_capacidade (struct fila_t *f);
-
-// Imprime o conteúdo da fila do início ao fim, no formato "item item ...",
-// com um espaço entre itens, sem espaços antes/depois e sem \n no fim
+// Imprime o conteúdo da fila no formato "Fila: [ 1 2 3 ]"
 void fila_imprime (struct fila_t *f);
 
 #endif
