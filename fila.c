@@ -1,126 +1,137 @@
-// Tipo abstrato de dado "fila de inteiros"
-// Prof. Carlos Maziero - DINF/UFPR, Out 2024
-// Implementação com Vetor Circular (Arranjo)
+/* Implementação do TAD Fila (fila.c)
+ * Baseado na interface fila.h
+ * Ajustado para trabalhar com inteiros (IDs)
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "fila.h"
 
-// Cria uma fila vazia com a capacidade informada e a retorna;
-struct fila_t *fila_cria (int capacidade)
+/* Cria uma fila vazia.*/
+/*Retorno: ponteiro para a fila criada ou NULL se erro.*/ 
+struct fila_t *fila_cria ()
 {
-    if (capacidade <= 0) return NULL;
-
-    struct fila_t *f = (struct fila_t*) malloc(sizeof(struct fila_t));
-    if (f == NULL) return NULL;
-
-    f->dados = (int*) malloc(sizeof(int) * capacidade);
-    if (f->dados == NULL) {
-        free(f);
+    // Aloca a estrutura da fila
+    struct fila_t *f = malloc(sizeof(struct fila_t));
+    if (!f)
         return NULL;
-    }
 
-    f->capacidade = capacidade;
-    f->tamanho = 0;
-    f->inicio = 0;
-    f->fim = 0;
+    f->prim = NULL;
+    f->ult = NULL;
+    f->num = 0;
 
     return f;
 }
 
-// Remove todos os elementos da fila, libera memória e retorna NULL
+/* Libera todas as estruturas de dados da fila.*/
+/* Retorno: NULL.*/
 struct fila_t *fila_destroi (struct fila_t *f)
 {
-    if (f != NULL) {
-        if (f->dados != NULL) {
-            free(f->dados);
-        }
-        free(f);
+    if (!f)
+        return NULL;
+
+    struct fila_nodo_t *atual;
+    atual = f->prim;
+    struct fila_nodo_t *prox;
+
+    while (atual)
+    {
+        prox = atual->prox;
+        
+        /*IMPORTANTE: Como o item é um 'int', NÃO fazemos free(atual->item).*/ 
+        /*Apenas liberamos o nodo da lista encadeada.*/ 
+        free(atual);
+        
+        atual = prox;
     }
+
+    free(f);
     return NULL;
 }
 
-// Insere o elemento no final da fila (politica FIFO);
-int fila_insere (struct fila_t *f, int elem)
+/* Insere um item (ID) no final da fila.*/
+/* Retorno: 1 se sucesso, 0 se erro.*/
+int fila_insere (struct fila_t *f, int item)
 {
-    if (f == NULL) return -1;
-    
-    // Verifica se a fila está cheia
-    if (f->tamanho == f->capacidade) return -1;
+    if (!f)
+        return 0;
 
-    // Insere na posição 'fim'
-    f->dados[f->fim] = elem;
+    struct fila_nodo_t *novo;
+    novo = malloc(sizeof(struct fila_nodo_t));
 
-    // Atualiza o índice 'fim' circularmente
-    f->fim = (f->fim + 1) % f->capacidade;
-    
-    f->tamanho++;
+    if (!novo)
+        return 0; // Falha na alocação
 
-    return f->tamanho;
+    novo->item = item;
+    novo->prox = NULL;
+
+    // Se a fila estiver vazia
+    if (f->prim == NULL)
+    {
+        f->prim = novo;
+        f->ult  = novo;
+    }
+    else
+    {
+        f->ult->prox = novo; /* O antigo último aponta para o novo*/
+        f->ult = novo;       /*Atualiza o ponteiro de último*/ 
+    }
+
+    f->num++;
+    return 1;
 }
 
-// Retira o elemento do inicio da fila (politica FIFO) e o devolve;
-int fila_retira (struct fila_t *f, int *elem)
+/* Retira o primeiro item da fila e o devolve no ponteiro *item.*/
+/* Retorno: 1 se sucesso (item retirado), 0 se erro ou fila vazia.*/
+int fila_retira (struct fila_t *f, int *item)
 {
-    if (f == NULL || elem == NULL) return -1;
+    // Validações básicas
+    if (!f || f->prim == NULL || !item)
+        return 0;
 
-    // Verifica se a fila está vazia
-    if (f->tamanho == 0) return -1;
+    struct fila_nodo_t *removido;
+    removido = f->prim;
 
-    // Recupera o valor do início
-    *elem = f->dados[f->inicio];
+    // Retorna o valor (int) para o usuário
+    *item = removido->item;
 
-    // Atualiza o índice 'inicio' circularmente
-    f->inicio = (f->inicio + 1) % f->capacidade;
+    // Avança a fila
+    f->prim = removido->prox;
 
-    f->tamanho--;
+    // Se a fila ficou vazia, ajusta o ponteiro 'ult'
+    if (f->prim == NULL)
+        f->ult = NULL;
 
-    return f->tamanho;
+    f->num--;
+    free(removido); // Libera o nodo
+
+    return 1;
 }
 
-// Devolve o primeiro da fila, sem removê-lo
-int fila_primeiro (struct fila_t *f, int *elem)
-{
-    if (f == NULL || elem == NULL) return -1;
-
-    // Verifica se a fila está vazia
-    if (f->tamanho == 0) return -1;
-
-    *elem = f->dados[f->inicio];
-
-    return f->tamanho;
-}
-
-// Retorna o tamanho da fila (número de elementos presentes)
+/* Informa o número de itens na fila.*/
+/* Retorno: N >= 0 ou -1 se erro.*/
 int fila_tamanho (struct fila_t *f)
 {
-    if (f == NULL) return -1;
-    return f->tamanho;
+    if (!f)
+        return -1;
+
+    return f->num;
 }
 
-// Retorna a capacidade da fila (número máximo de elementos)
-int fila_capacidade (struct fila_t *f)
-{
-    if (f == NULL) return -1;
-    return f->capacidade;
-}
-
-// Imprime o conteúdo da fila do início ao fim
+/* Imprime o conteúdo da fila no formato "Fila: [ 1 2 3 ]"*/
 void fila_imprime (struct fila_t *f)
 {
-    if (f == NULL) return;
+    if (!f)
+        return;
 
-    int i, idx;
-    // Percorre 'tamanho' vezes
-    for (i = 0; i < f->tamanho; i++) {
-        // Calcula o índice real baseado no deslocamento a partir do 'inicio'
-        idx = (f->inicio + i) % f->capacidade;
-        
-        printf("%d", f->dados[idx]);
-        
-        // Imprime espaço se não for o último elemento
-        if (i < f->tamanho - 1) {
-            printf(" ");
-        }
+    struct fila_nodo_t *atual;
+    atual = f->prim;
+
+    printf("Fila: [ ");
+    while (atual)
+    {
+        printf("%d ", atual->item);
+        atual = atual->prox;
     }
+    printf("]\n");
 }
