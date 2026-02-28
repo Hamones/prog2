@@ -8,3 +8,10 @@ dedicar a uma array uma série de caracteres.
 
 dar para um ponteiro a posição inicial da array do char.
 dar para um ponteiro a posição final da array do char.
+
+
+unsigned char vetor_char[4] = {0,0,0,0};
+
+unsigned int *pnt_inicio;
+unsigned int *pnt_fim;
+
