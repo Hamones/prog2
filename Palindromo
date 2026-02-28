@@ -1,17 +1,34 @@
-Letra
+#include <stdio.h>
+#include <stlib.h>
 
-comparar L com A
-comparar e com r
-comparar t
-
-dedicar a uma array uma série de caracteres.
-
-dar para um ponteiro a posição inicial da array do char.
-dar para um ponteiro a posição final da array do char.
-
+int main ()
+{       
 
 unsigned char vetor_char[4] = {0,0,0,0};
 
 unsigned int *pnt_inicio;
 unsigned int *pnt_fim;
 
+pnt_incio = (int *) vetor_char;
+
+pnt_fim = (int *) vetor_char;
+for (i; i++ ; i = 4)    
+        pnt_fim++;
+
+while (pnt_incio > pnt_fim) && (pnt_inicio* = pnt_fim*)
+{
+        pnt_inicio* = pnt_fim*;
+        pnt_inicio ++;
+        pnt_fim --;
+}
+
+
+printf("%d",vetor_char);
+
+
+
+
+        return 0;
+}       
+
+~                                                                                              
