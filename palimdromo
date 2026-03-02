@@ -1,0 +1,213 @@
+
+
+++++ .h ++++
+#
+struct fila_no{
+	int item;
+	struct fila_nodo *prox;
+	struct fila_nodo *ant;
+}
+
+struct lista{
+	struct fila_nodo *prim;
+	struct fila_nodo *ultm;
+	int num;
+}
+
+struct fila_t *fila_cria ();
+
+struct fila_t *fila_destroi (struct fila_t *f);
+
+int fila_insere(struct fila_t *f, int item);
+
+int fila_retira(struct fila_t *f, int *item);'''
+
+int fila_tamanho(struct fila_t *f);
+
+int fila_imprime(struct fila_t *f);
+
+void next (); //a definir
+
+void resnext()''' ///a definir
+
+
+
+
+
+
+
+/fim +++++ .h ++++++
+
++++++ funcoes.c +++++
+
+
+/* Implementação do TAD Fila (fila.c)
+ * Baseado na interface fila.h
+ * Ajustado para trabalhar com inteiros (IDs)
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "fila.h"
+
+
+struct fila_t *fila_cria ()
+{
+    // Aloca a estrutura da fila
+    struct fila_t *f = malloc(sizeof(struct fila_t));
+    if (!f)
+        return NULL;
+
+    f->prim = NULL;
+    f->ult = NULL;
+    f->num = 0;
+
+    return f;
+}
+
+struct fila_t *fila_destroi (struct fila_t *f)
+{
+    if (!f)
+        return NULL;
+
+    struct fila_nodo_t *atual;
+    atual = f->prim;
+    struct fila_nodo_t *prox;
+
+    while (atual)
+    {
+        prox = atual->prox;
+        
+        free(atual);
+        
+        atual = prox;
+    }
+
+    free(f);
+    return NULL;
+}
+
+int fila_insere (struct fila_t *f, int item)
+{
+    if (!f)
+        return 0;
+
+    struct fila_nodo_t *novo;
+    novo = malloc(sizeof(struct fila_nodo_t));
+
+    if (!novo)
+        return 0;
+
+    novo->item = item;
+    novo->prox = NULL;
+
+    
+    if (f->prim == NULL)
+    {
+        f->prim = novo;
+        f->ult  = novo;
+    }
+    else
+    {
+        f->ult->prox = novo; 
+	f->ult = novo; 
+    }
+
+    f->num++;
+    return 1;
+}
+
+int fila_retira (struct fila_t *f, int *item)
+{
+    if (!f || f->prim == NULL || !item)
+        return 0;
+
+    struct fila_nodo_t *removido;
+    removido = f->prim;
+	
+	*item = removido->item;
+	
+	f->prim = removido->prox;
+
+	if (f->prim == NULL)
+		f->ult == NULL;
+	
+	f->num--;
+	free(removido);
+	
+	return 1;
+}
+
+int fila tamanho (struct fila_t *f)
+{
+	if(!f)
+		return -1;
+
+	return f->num;
+}
+
+
+void fila_imprime (struct fila_t *f)
+{
+	if (!f)
+		return;
+
+	struc fila_nodo_t *atual;
+	atual = f-> prim;
+
+	printf("Fila: [ ");
+	
+	while (atual)
+	{
+		printf("%d/n", atual->item);
+		atual = prox-> item;
+	}
+
+	printf("] \n");
+}
+
++++++ deque_teste +++++
+int main()
+
+#include <stdio.h>
+#include "fila.h"
+
+#define TAM 4
+
+
+int main ()
+{
+	struct fila_t *f;
+	int i, status,  valor;
+
+	f = fila_cria (TAMANHO);
+	
+	char* palavra;
+	palavra = {C,A,S,A}
+
+
+	printf ("Inserções: \n");
+	for (i = 0; i < TAMANHO + 2; i++)
+	{
+		; //entender por que deve ser 10;
+		printf ("Serah inserido %d", valor);
+		status = fila_insere(f, valor);
+		if (status < 0)
+			printf ("Fila cheia!\n");
+	
+		printf("[ ");
+		fila_imprime(f);
+		printf(" ]\n");
+
+		fila_primeiro (f, &valor);
+		printf ("%d elementos, primeiro = %d\n\n", fila_tamanho (f), valor);
+	}
+
+
+
+
+
+
+
+return 0;
+}
