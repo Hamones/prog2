@@ -1,0 +1,28 @@
+Função VerificaPalindromo(palavra_texto):
+    // Inicialização
+    d = deque_cria()
+    
+    // Passo 1: Preencher o Deque
+    // Colocamos cada letra da palavra no Deque, mantendo a ordem.
+    Para cada 'letra' dentro de 'palavra_texto':
+        deque_insere_fim(d, letra)
+        
+    // Passo 2: Comparar as extremidades
+    // Continuamos comparando enquanto houver pelo menos 2 letras para comparar.
+    // (Se sobrar 1 letra no meio, ou 0, significa que tudo era igual e é palíndromo).
+    Enquanto deque_tamanho(d) > 1:
+        
+        // Retiramos as letras das pontas
+        letra_inicio = deque_retira_inicio(d)
+        letra_fim = deque_retira_fim(d)
+        
+        // Comparamos as duas letras
+        Se letra_inicio FOR DIFERENTE de letra_fim:
+            // Encontrou uma diferença! Não é palíndromo.
+            deque_destroi(d) // Importante: limpar a memória antes de sair
+            Retornar FALSO
+            
+    // Passo 3: Conclusão
+    // Se o laço terminou sem retornar FALSO, todas as pontas eram iguais.
+    deque_destroi(d) // Limpar a memória final
+    Retornar VERDADEIRO
