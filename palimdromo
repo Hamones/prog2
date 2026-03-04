@@ -27,11 +27,21 @@ int fila_tamanho(struct fila_t *f);
 int fila_imprime(struct fila_t *f);
 
 void next (); //a definir
-
 void resnext()''' ///a definir
 
 
-
+Funções listadas
+void insere início(struct nodo* novo);
+struct node* removeIncio (struct deque* fipi);
+struct onde* removerFim (Struct deque* fipi);
+int tamanho(struct deque* fipi;
+struct nodo* primeiro(truct deque* fipi);
+struct nodo* ultimo(struct deque* fipi);
+void insereFim(struct deque* fipi, struct nodo* novo); 
+struct nodo* próx(struc nodo* atual);
+int elemento (struct nodo* atual);
+void setlemento (struct nodo atual, int e);
+struct nodo* cria nodo (int e); 
 
 
 /fim +++++ .h ++++++
