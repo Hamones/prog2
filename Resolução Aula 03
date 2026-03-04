@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char linha[256];
+    char separador[] = ",";
+    char *token;
+    int coluna = 1;
+
+    // Lendo a string inteira até a quebra de linha
+    printf("Digite uma linha CSV: ");
+    scanf("%[^\n]", linha);
+    getchar(); // Limpeza do buffer removendo a quebra de linha
+
+    // Inicializando a busca pelos tokens separados por vírgula
+    token = strtok(linha, separador);
+
+    // Iterando sobre todos os tokens encontrados
+    if (token != NULL) {
+        do {
+            printf("Coluna %d: %s\n", coluna, token);
+            coluna++;
+            // Buscando o próximo token na mesma string
+            token = strtok(NULL, separador); 
+        } while (token);
+    } else {
+        printf("Nenhum dado encontrado na linha.\n");
+    }
+
+    return 0;
+}
