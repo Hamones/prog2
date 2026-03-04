@@ -34,8 +34,6 @@ void resnext()''' ///a definir
 
 
 
-
-
 /fim +++++ .h ++++++
 
 +++++ funcoes.c +++++
@@ -184,6 +182,15 @@ int main ()
 	
 	char* palavra;
 	palavra = {C,A,S,A}
+
+
+
+caixa 1 = lista->*primeiro.
+caixa 2 = lista->*último.
+
+comparar
+
+Comparar o primeiro elemento com o segundo elemento
 
 
 	printf ("Inserções: \n");
