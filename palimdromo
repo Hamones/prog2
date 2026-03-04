@@ -189,19 +189,27 @@ int main ()
 	int i, status,  valor;
 
 	f = fila_cria (TAMANHO);
-	
+//pseudo código.
+	criar a palavra.	
 	char* palavra;
-	palavra = {C,A,S,A}
+	palavra = {C,A,S,A} C [0000001] A[0000002] S[0000001] A[00010001]
 
 
+	inserir as palavras no deque.
+	for (i = 0; i < TAMNHO; i++)
+		char *nodo = palavra++;
+		inserir_deque(nodo);	
+		
+	while (caixa 1 == caixa 2) && (caixa1->pos > caixa2->pos)
+	{
+		caixa 1 = deque->*primeiro.
+		caixa 2 = deque->*último.
+	}
 
-caixa 1 = lista->*primeiro.
-caixa 2 = lista->*último.
 
-comparar
+++++ ordenar deque+++++
 
-Comparar o primeiro elemento com o segundo elemento
-
+//como ordenar palavras em um string?
 
 	printf ("Inserções: \n");
 	for (i = 0; i < TAMANHO + 2; i++)
