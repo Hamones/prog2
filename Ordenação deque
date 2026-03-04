@@ -1,0 +1,31 @@
+Função OrdenarDeque(DequeOriginal):
+    // Cria um deque auxiliar para nos ajudar na ordenação
+    DequeTemp = deque_cria()
+
+    // Passo 1: Esvaziar o original enquanto preenchemos o temporário em ordem
+    Enquanto tamanho(DequeOriginal) > 0:
+        
+        // Pegamos o elemento do topo do deque original
+        elemento_atual = deque_retira_inicio(DequeOriginal)
+
+        // Verificamos se o DequeTemp tem elementos e se o último elemento lá 
+        // é MAIOR que o nosso 'elemento_atual'
+        Enquanto tamanho(DequeTemp) > 0 E valor_no_fim(DequeTemp) > elemento_atual:
+            
+            // O elemento no DequeTemp é maior! 
+            // Precisamos tirá-lo de lá e devolver temporariamente para o Original
+            elemento_maior = deque_retira_fim(DequeTemp)
+            deque_insere_inicio(DequeOriginal, elemento_maior)
+            
+        // Fim do laço interno. Agora sabemos que a posição está livre e ordenada.
+        // Inserimos o 'elemento_atual' no fim do DequeTemp
+        deque_insere_fim(DequeTemp, elemento_atual)
+
+    // Passo 2: Devolver tudo ordenado para o DequeOriginal
+    // Neste ponto, o DequeOriginal está vazio e o DequeTemp está 100% ordenado.
+    Enquanto tamanho(DequeTemp) > 0:
+        item_ordenado = deque_retira_inicio(DequeTemp)
+        deque_insere_fim(DequeOriginal, item_ordenado)
+
+    // Passo 3: Limpeza
+    deque_destroi(DequeTemp)
