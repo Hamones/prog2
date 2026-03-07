@@ -23,8 +23,14 @@ for (i = 0; i < 20; i++)
 }
 //funções
 
-return 0;
+char palavra[100] = {"Abacate"};
+char *letra;
 
+letra = strchr(palavra,'z');
+
+//verificar se existe esse vetor
+if (letra)
+{
+	//imprimir o conteúdo do vetor.
+	printf("%c\n",*letra);
 }
-
-
