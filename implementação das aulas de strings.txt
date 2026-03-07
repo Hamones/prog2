@@ -1,2 +1,30 @@
-implementação das aulas de strings
+//implementação das aulas de strings
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+int i;
+//imprimir hello world
+char palavra[20] = {"Hello World!"};
+// "" adiciona '\0' ao vetor.
+
+
+printf("%s", palavra);
+
+char palavra[15] = 'x';
+
+for (i = 0; i < 20; i++)
+{
+  if (palavra[i] != '\0'); //impressão até o character /0
+    printf("%c",palavra[i]);
+  else
+    break;
+}
+//funções
+
+return 0;
+
+}
+
 
