@@ -1,3 +1,4 @@
+
 //implementação das aulas de strings
 
 #include<stdio.h>
@@ -34,3 +35,6 @@ if (letra)
 	//imprimir o conteúdo do vetor.
 	printf("%c\n",*letra);
 }
+
+//procurar em uma Strings uma substring.
+
