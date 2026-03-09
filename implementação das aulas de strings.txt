@@ -50,7 +50,25 @@ ponteiro = strstr(frase,palavra); //associa duas estrings e retorna o endereço
 char letra = 'c';
 char ma, mi;
 
-ma = toupper(letra);
+ma = toupper(letra); //percorrer a Strings até o seu final.
+
+for 
+palavra[i] = (toupper(palavra[i]);
 mi = tolower(ma);
 
 printf("n\t\ %c/ n\t\",ma, mi);
+
+
+//converter uma Strings para maiúsculo strupr() e strlw() <--- não faz parte da biblioteca padrão do C
+
+//criar um string.
+
+//imprimir a Strings.
+
+//usar a função strupr.
+
+//imprimir a função strupr.
+
+//usar a função strlwr.
+
+//imprimir a função strlwr.
