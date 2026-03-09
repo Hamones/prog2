@@ -36,5 +36,21 @@ if (letra)
 	printf("%c\n",*letra);
 }
 
-//procurar em uma Strings uma substring.
+//procurar uma palavra;
 
+char frase[100]={"Casa branca senzala"};
+char palavra[100]={"branca"};
+
+ponteiro = strstr(frase,palavra); //associa duas estrings e retorna o endereço
+
+//converter para maiúsculo e minúsculo;
+
+<ctype.h> //alterar caracter.
+
+char letra = 'c';
+char ma, mi;
+
+ma = toupper(letra);
+mi = tolower(ma);
+
+printf("n\t\ %c/ n\t\",ma, mi);
