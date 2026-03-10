@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+#define TAM 100
+
+int main ()
+{
+    char linha[TAM][TAM];
+    char entrada[TAM];
+    int i = 0, j = 0, k = 0;
+
+    fgets(entrada, TAM, stdin);
+    //pesquisando os caracteres.
+
+    while (palavra[i] != '\0')
+    {
+        linha[j][k] = entrada[i];
+        if (palavra [i] == '\n')
+        {
+            k++;
+            j= 0;
+        }
+        i++;
+        j++;
+    }
+
+    i=0;
+    while (token[i] != NULL)
+    {
+        printf("linha: %s", linha[i][k]);
+        k++;
+    }
+
+return 0;
+{
