@@ -5,5 +5,17 @@
 int main ()
 {
 
-return 0;
+	char palavra*;
+	
+	//formas de encontrar uma palavra em um arquivo.
+	//formas de contar a palavra encontrada dentro de um arquivo.
+	//receber nome
+	//abrir o arquivo
+	//listar todas as palavras.
+	//contar a quantidade palavras.
+	
+	
+
+
+	return 0;
 }
