@@ -2,11 +2,18 @@
 #include <string.h>
 
 
+struct node
+{
+ 	char *palavra;
+	int frequencia;
+}
+
 int main ()
 {
 
-	char palavra*;
-	
+	char stream;
+
+	fget
 	//formas de encontrar uma palavra em um arquivo.
 	//formas de contar a palavra encontrada dentro de um arquivo.
 	//receber nome
