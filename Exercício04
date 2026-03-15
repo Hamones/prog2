@@ -1,28 +1,36 @@
 #include <stdio.h>
 #include <string.h>
-
+#define TAM 1000
 
 struct node
 {
- 	char *palavra;
+ 	char palavra[100];
 	int frequencia;
-}
+};
 
 int main ()
 {
 
-	char stream;
+	struct palavra texto[TAM];
+	int i = 0;
 
-	fget
-	//formas de encontrar uma palavra em um arquivo.
-	//formas de contar a palavra encontrada dentro de um arquivo.
-	//receber nome
-	//abrir o arquivo
-	//listar todas as palavras.
-	//contar a quantidade palavras.
-	
-	
 
+	while (stream)
+	{
+	
+		texto [i] = fget(file; sdtin);
+		
+		if texto [i] = '\n'
+			i++;	
+	}
+	i = 0;
+
+	for (i; i < TAM; i++)
+	{
+		for (j ; j < TAM; j++)
+			if texto[i]->palavra = texto [j]->palavra;
+			texto[i]->frequencia++;	
+	}
 
 	return 0;
 }
