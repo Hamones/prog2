@@ -1,53 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-#define TAM 1000
 
-struct node
-{
- 	char palavra[100];
-	int frequencia;
-};
+#define TAM_MAX_PALAVRAS 5000 // Limite de palavras distintas para armazenar
 
-int main ()
-{
-
-	struct palavra texto[TAM];
-	int i = 0;
-
-
-	while (stream)
-	{
-	
-		texto [i] = fget(file; sdtin);
-		
-		if texto [i] = '\n'
-			i++;	
-	}
-	i = 0;
-
-	for (i; i < TAM; i++)
-	{
-		for (j ; j < TAM; j++)
-			if texto[i]->palavra = texto [j]->palavra;
-			texto[i]->frequencia++;	
-	}
-
-	return 0;
-}
-
-
-#include <stdio.h>
-#include <string.h>
-
-#define TAM_MAX_PALAVRAS 5000 
-
-// =========================================================================
-// PERGUNTA 1: Como os dados serão representados na memória? 
-// Resposta: Usando uma 'struct' que une o texto da palavra e sua contagem,
-// e criando um array (vetor) dessas structs na função main.
-// =========================================================================
+// Estrutura para mapear a palavra e sua contagem
 struct Palavra {
-    char texto[100]; // Limite de 100 caracteres exigido no exercício
+    char texto[100]; // "Nenhuma palavra terá mais do que 100 caracteres"
     int frequencia;
 };
 
@@ -55,14 +13,11 @@ int main() {
     char nome_arquivo[100];
     FILE *arquivo;
     
+    // 1. Receber o nome do arquivo
     printf("Digite o nome do arquivo de texto: ");
     scanf("%99s", nome_arquivo);
 
-    // =========================================================================
-    // PERGUNTA 2: Como o programa vai acessar os dados externos?
-    // Resposta: Usando um ponteiro FILE* e a função fopen() no modo de 
-    // leitura ("r"), além de verificar se o arquivo realmente existe.
-    // =========================================================================
+    // 2. Abrir o arquivo no modo de leitura ("r")
     arquivo = fopen(nome_arquivo, "r");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo.\n");
@@ -73,19 +28,12 @@ int main() {
     int total_palavras_distintas = 0;
     char buffer[100];
 
-    // =========================================================================
-    // PERGUNTA 3: Como eu extraio o texto do arquivo?
-    // Resposta: Lendo palavra por palavra com fscanf() até encontrar o 
-    // fim do arquivo (EOF - End Of File).
-    // =========================================================================
+    // 3. Fazer a varredura lendo palavra por palavra
+    // fscanf retorna EOF quando atinge o fim do arquivo
     while (fscanf(arquivo, "%99s", buffer) != EOF && total_palavras_distintas < TAM_MAX_PALAVRAS) {
         int encontrada = 0;
         
-        // =====================================================================
-        // PERGUNTA 4: O que eu faço com cada palavra extraída?
-        // Resposta: Procuro no vetor. Se já existir, somo 1 na frequência.
-        // Se for nova, adiciono ao final do vetor com frequência 1.
-        // =====================================================================
+        // Verifica se a palavra lida já existe no nosso vetor
         for (int i = 0; i < total_palavras_distintas; i++) {
             if (strcmp(dicionario[i].texto, buffer) == 0) {
                 dicionario[i].frequencia++;
@@ -94,6 +42,7 @@ int main() {
             }
         }
         
+        // Se não foi encontrada, adiciona como uma nova palavra
         if (!encontrada) {
             strcpy(dicionario[total_palavras_distintas].texto, buffer);
             dicionario[total_palavras_distintas].frequencia = 1;
@@ -101,31 +50,23 @@ int main() {
         }
     }
 
-    // =========================================================================
-    // PERGUNTA 5: Como eu encerro a comunicação com o arquivo?
-    // Resposta: Usando fclose() para liberar os recursos do sistema.
-    // =========================================================================
+    // 4. Fechar o arquivo após o uso, como recomendado na aula
     fclose(arquivo);
 
-    // =========================================================================
-    // PERGUNTA 6: Como encontro a resposta que o exercício pede?
-    // Resposta: Percorrendo o vetor preenchido para achar o maior valor 
-    // de frequência e imprimindo a palavra correspondente na tela.
-    // =========================================================================
+    // 5. Encontrar a palavra mais frequente
     int max_freq = 0;
     char palavra_vencedora[100] = "";
 
     for (int i = 0; i < total_palavras_distintas; i++) {
-        // O uso do '>' garante que o primeiro empate a chegar no topo seja mantido
         if (dicionario[i].frequencia > max_freq) {
             max_freq = dicionario[i].frequencia;
             strcpy(palavra_vencedora, dicionario[i].texto);
         }
     }
 
-    // Apresentação do resultado
+    // 6. Apresentar o resultado
     if (total_palavras_distintas > 0) {
-        printf("\nA palavra mais frequente e: '%s' com %d ocorrencias.\n", palavra_vencedora, max_freq);
+        printf("\nA palavra mais frequente é: '%s' com %d ocorrencias.\n", palavra_vencedora, max_freq);
     } else {
         printf("\nO arquivo esta vazio ou nao contem palavras validas.\n");
     }
