@@ -30,8 +30,10 @@ void criar_lista(**lista)
 //adicionar inicio
 nodo adiciona_inicio(int valor, nodo nodo, lista **lista)
 {
-	if (nodo->início)
+	if ((*fila)->início)
 		{
+			(*fila)->item = valor;
+			
 		}
 	else
 		{
