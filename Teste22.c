@@ -1,23 +1,21 @@
+
+//implementar a struct
+
 struct nodo{
 	int valor;
 	struct nodo prox;
 	
 };
 
-
+//implementar a função
 struct nodo inserir_inicio(struct *nodo nodo, int valor)
 {
-	struct nodo *aux;
+	verificamos se temos a fila
 
-	//em qual momento utilizo o malloc?
-	//qual é o podeiro que devo adicionar os aux?
+adicionamos a informação da fila no vetor auxiliar
 
-	If (nodo)
-		aux->valor = valor;
-	eles
-			
 		
-
+//implementar a função usando cola.
 
 
 }
