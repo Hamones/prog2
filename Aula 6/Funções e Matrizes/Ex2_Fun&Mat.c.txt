@@ -1,0 +1,25 @@
+*/
+A segunda atividade propõe modificar o cálculo das comissões. A regra nova é: se o valor da comissão for maior que 1000 reais, o vendedor deve receber um adicional de 2% sobre o valor total da venda.
+/*
+
+#include <stdio.h>
+
+// Função modificada com a regra dos 1000 reais
+double comissao(double perc, int quantidade, double valorProduto) {
+    double valorTotalVenda = valorProduto * quantidade;
+    double valorComissao = (valorTotalVenda * perc) / 100.0;
+    
+    // Se a comissão ultrapassar 1000 reais, adiciona 2% do valor total da venda
+    if (valorComissao > 1000.0) {
+        valorComissao += (valorTotalVenda * 2.0) / 100.0;
+    }
+    
+    return valorComissao;
+}
+
+int main() {
+    // Exemplo: 40 televisores vendidos a 2000 reais cada (comissão de 15%)
+    double valor = comissao(15.0, 40, 2000.0); 
+    printf("O valor da comissao calculada e: R$ %.2f\n", valor);
+    return 0;
+}
