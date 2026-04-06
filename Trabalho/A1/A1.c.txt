@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+// Restrição rígida: tamanho máximo para transferência na RAM
+#define BUFFER_SIZE 4096 
+
+// 1. Estrutura do Superbloco (fica no byte 0 do arquivo .pak)
+typedef struct {
+    int total_assets;
+    long manifest_offset; // Onde no arquivo começa a tabela de metadados?
+} PakHeader;
+
+// 2. Estrutura do Metadado (compõe o diretório/manifesto no final do arquivo)
+typedef struct {
+    char asset_name[256];
+    size_t file_size;
+    time_t pack_date;
+    long byte_offset_in_pak;
+    int is_deleted; // Flag para remoção lógica (0 = ativo, 1 = removido)
+} AssetEntry;
+
+// Variáveis globais em memória (conforme restrições)
+AssetEntry *manifest = NULL; // Alocado dinamicamente com malloc/realloc
+PakHeader header = {0, sizeof(PakHeader)}; // Inicializa apontando o manifesto logo após o header
+
+// Função de comparação para o qsort (ordenação de arrays em C)
+int compare_by_size(const void *a, const void *b) {
+    AssetEntry *assetA = (AssetEntry *)a;
+    AssetEntry *assetB = (AssetEntry *)b;
+    // Retorna a diferença para ordenar de forma crescente
+    return (assetA->file_size - assetB->file_size); 
+}
+
+void add_asset(FILE *pak_file, const char *source_filename) {
+    FILE *source = fopen(source_filename, "rb");
+    if (!source) return;
+
+    // TODO: 1. Verificar se o asset já existe no manifesto (substituição).
+    // TODO: 2. Se for novo, alocar mais espaço no manifesto (realloc).
+    
+    // Posicionar o ponteiro do arquivo .pak no final dos DADOS BRUTOS 
+    // (logo antes de onde o manifesto estaria gravado).
+    fseek(pak_file, header.manifest_offset, SEEK_SET);
+
+    // RESTRIÇÃO: Transferência usando apenas buffers fixos (sem ler o arquivo todo)
+    char buffer[BUFFER_SIZE];
+    size_t bytes_read;
+    
+    while ((bytes_read = fread(buffer, 1, BUFFER_SIZE, source)) > 0) {
+        fwrite(buffer, 1, bytes_read, pak_file);
+    }
+
+    // TODO: 3. Atualizar os dados do novo asset no manifesto em RAM (nome, tamanho, offset atual).
+    // TODO: 4. Atualizar o header.manifest_offset para o novo final dos dados brutos.
+    // TODO: 5. Gravar o manifesto atualizado no final do arquivo .pak e o header no início.
+
+    fclose(source);
+}
+
+void remove_asset_logical(const char *asset_name) {
+    // TODO: Buscar o asset no manifesto carregado em RAM.
+    // TODO: Se encontrar, marcar 'is_deleted = 1' (remoção lógica).
+    // TODO: Reescrever apenas o manifesto no final do arquivo .pak para persistir a mudança.
+}
+
+void reorder_manifest(FILE *pak_file) {
+    // Reordena o manifesto em RAM usando o algoritmo de ordenação da stdlib
+    // Isso tem complexidade O(n log n), excelente para manter a performance.
+    qsort(manifest, header.total_assets, sizeof(AssetEntry), compare_by_size);
+
+    // TODO: Posicionar o ponteiro no header.manifest_offset.
+    // TODO: Reescrever todo o array 'manifest' atualizado no arquivo usando fwrite.
+    // Nota: O arquivo não muda de tamanho, os dados continuam onde estão, 
+    // apenas a tabela no final do arquivo mudou de ordem.
+}
+
+int main(int argc, char *argv[]) {
+    // TODO: Processar os argumentos da linha de comando (-a, -r, -l, -v, -o)
+    
+    // Exemplo de abertura segura de arquivo binário
+    FILE *pak = fopen("assets.pak", "rb+");
+    if (!pak) {
+        pak = fopen("assets.pak", "wb+"); // Cria se não existir
+        // TODO: Escrever um cabeçalho vazio inicial aqui
+    } else {
+        // TODO: Ler o cabeçalho existente.
+        // TODO: Fazer fseek para header.manifest_offset e ler o manifesto para a RAM (malloc).
+    }
+
+    // Lógica de roteamento dos comandos viria aqui...
+
+    if (manifest) free(manifest);
+    fclose(pak);
+    return 0;
+}
