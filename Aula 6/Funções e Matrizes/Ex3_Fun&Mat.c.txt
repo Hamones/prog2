@@ -1,0 +1,21 @@
+*/ Imprimir Array Invertido
+
+A terceira atividade exige uma função que receba um array genérico e imprima seus elementos de trás para frente. Em C, quando passamos um array para uma função, também precisamos passar o seu tamanho para que o laço de repetição saiba onde parar.
+*/
+
+#include <stdio.h>
+
+// Função que recebe um array e seu tamanho, e imprime invertido
+void imprimeArrayInvertido(int arr[], int tamanho) {
+    printf("Array invertido: ");
+    for(int i = tamanho - 1; i >= 0; i--) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int meuArray[5] = {10, 20, 30, 40, 50};
+    imprimeArrayInvertido(meuArray, 5);
+    return 0;
+}

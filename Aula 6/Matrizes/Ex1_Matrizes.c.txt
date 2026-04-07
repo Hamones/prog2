@@ -1,0 +1,68 @@
+*/
+O Gemini disse
+
+Com base no material fornecido, aqui estão exemplos práticos de código em C para resolver as duas atividades propostas na seção "ATIVIDADE".
+Exercício 1: Operações com Matrizes (2x4)
+
+O primeiro exercício pede um programa que leia os valores de duas matrizes A e B (de tamanho 2x4) e realize três operações matemáticas: A−B, 3×A e 2×A+BT.
+
+Observação matemática importante: A operação da letra "c" (2×A+BT) apresenta uma impossibilidade matemática na álgebra linear padrão. Se A e B são matrizes de dimensões 2×4, a transposta de B (BT) terá dimensões 4×2. Não é possível somar uma matriz 2×4 com uma matriz 4×2. O código abaixo resolve as letras "a" e "b" e demonstra como calcular a matriz transposta e a multiplicação por escalar conforme ensinado no material, mas pula a soma inválida da letra "c"
+*/
+#include <stdio.h>
+
+int main() {
+    int A[2][4], B[2][4];
+    int sub[2][4], multA[2][4], transB[4][2];
+    int i, j;
+
+    // Lendo os valores para a Matriz A
+    printf("Digite os valores da Matriz A (2x4):\n");
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 4; j++) {
+            printf("A[%d][%d]: ", i, j);
+            scanf("%d", &A[i][j]);
+        }
+    }
+
+    // Lendo os valores para a Matriz B
+    printf("\nDigite os valores da Matriz B (2x4):\n");
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 4; j++) {
+            printf("B[%d][%d]: ", i, j);
+            scanf("%d", &B[i][j]);
+        }
+    }
+
+    // a) A - B
+    printf("\na) Matriz A - B:\n");
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 4; j++) {
+            sub[i][j] = A[i][j] - B[i][j];
+            printf("%4d ", sub[i][j]);
+        }
+        printf("\n");
+    }
+
+    // b) 3 * A
+    printf("\nb) Matriz 3 * A:\n");
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 4; j++) {
+            multA[i][j] = 3 * A[i][j];
+            printf("%4d ", multA[i][j]);
+        }
+        printf("\n");
+    }
+
+    // c) Preparando B^T (Transposta de B)
+    printf("\nc) Transposta de B (B^T) - 4x2:\n");
+    for(i = 0; i < 4; i++) {
+        for(j = 0; j < 2; j++) {
+            transB[i][j] = B[j][i];
+            printf("%4d ", transB[i][j]);
+        }
+        printf("\n");
+    }
+    printf("Nota: Nao e possivel somar (2 * A) com B^T por incompatibilidade de dimensoes.\n");
+
+    return 0;
+}

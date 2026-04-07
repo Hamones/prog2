@@ -1,0 +1,20 @@
+*/
+A primeira atividade pede uma função que receba uma temperatura em graus Celsius e calcule o valor equivalente em graus Fahrenheit. O material apresenta a fórmula: Celsius=5.0/9.0×(Farenheit−32). Para que a função retorne Fahrenheit a partir de Celsius, precisamos isolar o Fahrenheit matematicamente, resultando em: Fahrenheit=(Celsius×9.0/5.0)+32.
+*/
+
+
+
+#include <stdio.h>
+
+// Função que recebe Celsius e retorna Fahrenheit
+float converterParaFahrenheit(float celsius) {
+    float fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
+    return fahrenheit;
+}
+
+int main() {
+    float tempCelsius = 30.0;
+    printf("%.2f graus Celsius equivalem a %.2f graus Fahrenheit.\n", 
+           tempCelsius, converterParaFahrenheit(tempCelsius));
+    return 0;
+}

@@ -1,0 +1,54 @@
+//O segundo exercício pede para manipular uma matriz contendo o código de 5 alunos e as notas do 1º e 2º bimestres. O programa deve calcular a média, achar o código do aluno com a maior nota no 1º bimestre e o código do aluno com a menor nota no 2º bimestre.
+
+#include <stdio.h>
+
+int main() {
+    // Tabela fornecida no material (5 linhas, 3 colunas)
+    // Coluna 0: Código, Coluna 1: Nota 1º Bim, Coluna 2: Nota 2º Bim
+    float notas[5][3] = {
+        {1111, 70, 75},
+        {1112, 80, 90},
+        {1113, 90, 100},
+        {1114, 60, 70},
+        {1115, 75, 80}
+    };
+    
+    int i;
+    
+    // Variáveis para armazenar a maior nota do 1º bim e a menor do 2º bim
+    float maiorNota1 = notas[0][1];
+    int codMaiorNota1 = (int)notas[0][0];
+    
+    float menorNota2 = notas[0][2];
+    int codMenorNota2 = (int)notas[0][0];
+
+    // a) Calcule e imprima o código do aluno e a média do aluno
+    printf("a) Medias dos alunos:\n");
+    for(i = 0; i < 5; i++) {
+        int codigo = (int)notas[i][0];
+        float media = (notas[i][1] + notas[i][2]) / 2.0;
+        printf("Codigo: %d | Media: %.2f\n", codigo, media);
+        
+        // Verificando a maior nota do 1º Bimestre para a letra 'b'
+        if(notas[i][1] > maiorNota1) {
+            maiorNota1 = notas[i][1];
+            codMaiorNota1 = codigo;
+        }
+        
+        // Verificando a menor nota do 2º Bimestre para a letra 'c'
+        if(notas[i][2] < menorNota2) {
+            menorNota2 = notas[i][2];
+            codMenorNota2 = codigo;
+        }
+    }
+
+    // b) Código do aluno que tirou a maior nota do 1º bimestre
+    printf("\nb) Aluno com maior nota no 1o bimestre:\n");
+    printf("Codigo: %d (Nota: %.2f)\n", codMaiorNota1, maiorNota1);
+
+    // c) Código do aluno que tirou a menor nota do 2º bimestre
+    printf("\nc) Aluno com menor nota no 2o bimestre:\n");
+    printf("Codigo: %d (Nota: %.2f)\n", codMenorNota2, menorNota2);
+
+    return 0;
+}
