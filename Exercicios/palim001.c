@@ -15,20 +15,16 @@ B = &palavra;
 
 fgets(palavra,sizeof(palavra),stdin);
 
-while (B != '\0')
+while (B != '\0') //torna TAM irrelevante.
 B = B + sizeof(palavra);
 
-while (*A = *B){
+while (*A == *B) && (A < B){
     A++;
     B--;
-    if (B < A){
-        printf("É palimdromo");
-        break;
-    }
-    else
-        printf("Não é palimdromo");
-    
 }
+
+
+
 
 return 0;
 }
