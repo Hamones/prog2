@@ -18,7 +18,10 @@ fgets(palavra,sizeof(palavra),stdin);
 while (B != '\0') //torna TAM irrelevante.
 B = B + sizeof(palavra);
 
-while (*A == *B) && (A < B){
+while (A < B){
+if (*A != *B){
+break;
+printf("Não eh Palindromo");      
     A++;
     B--;
 }
