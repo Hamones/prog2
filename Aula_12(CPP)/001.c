@@ -1,0 +1,1 @@
+Tudo está no pensar.
